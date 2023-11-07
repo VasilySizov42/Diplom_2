@@ -20,4 +20,9 @@ public class BaseURLHandlesAndWarnings {
     public static final String NOT_AUTHORISED = "You should be authorised";
     public static final String EMAIL_ALREADY_EXISTS = "User with such email already exists";
     public static final String INSUFFICIENT_ORDER_DATA = "Ingredient ids must be provided";
+    public static final String DELETE_USER = "User successfully removed";
+
+    //Alerts
+    public static final String CHECK_DATA = "Пользователь не был создан. Проверьте данные.";
+    public static final String AUTHORIZATION_NOT_POSSIBLE = "Пользователь не был создан. Авторизация невозможна.";
 }
