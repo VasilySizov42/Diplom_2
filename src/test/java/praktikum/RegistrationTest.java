@@ -16,12 +16,7 @@ public class RegistrationTest {
     Credentials userCredentials;
     @Before
     public void createNewUserData() {
-        try {
         userData = UserRequests.genericUser();
-        }
-        catch (Exception e){
-            System.out.println(CHECK_DATA);
-        }
     }
     @Test
     @DisplayName("Check creating a user with random profile data")

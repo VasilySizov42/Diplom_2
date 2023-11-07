@@ -25,4 +25,5 @@ public class BaseURLHandlesAndWarnings {
     //Alerts
     public static final String CHECK_DATA = "Пользователь не был создан. Проверьте данные.";
     public static final String AUTHORIZATION_NOT_POSSIBLE = "Пользователь не был создан. Авторизация невозможна.";
+    public static final String SOMETHING_WRONG = "Что-то пошло не так. Проверьте токен.";
 }
