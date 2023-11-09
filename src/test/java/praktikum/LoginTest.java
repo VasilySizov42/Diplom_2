@@ -5,11 +5,12 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import praktikum.methods.GeneralMethods;
 import praktikum.methods.checking.Checkings;
 import praktikum.methods.requests.UserRequests;
 
 import static java.net.HttpURLConnection.*;
-import static praktikum.constants.BaseURLHandlesAndWarnings.*;
+import static praktikum.constants.BaseURLHandlesAndWarningsEtc.*;
 import static praktikum.constants.DataForTesting.WRONG_EMAIL;
 import static praktikum.constants.DataForTesting.WRONG_PASSWORD;
 
@@ -18,12 +19,14 @@ public class LoginTest {
     Credentials userCredentials;
     String token;
     @Before
-    public void createNewUserData() {
+    @DisplayName("Create new user")
+    @Description("Attempt to create a new user with random profile data")
+    public void createNewUser() {
         try {
-            userData = UserRequests.genericUser();
+            userData = GeneralMethods.genericUser();
             var register = UserRequests.registerUser(userData);
-            token = UserRequests.getUserAccessToken(register);
-            userCredentials = UserRequests.genericUserCredentials(userData);
+            token = GeneralMethods.getUserAccessToken(register);
+            userCredentials = GeneralMethods.genericUserCredentials(userData);
         }
         catch (Exception e){
             System.out.println(CHECK_DATA);
@@ -35,7 +38,7 @@ public class LoginTest {
     public void loginCourierWithRandomName() {
         var login = UserRequests.loginUser(userCredentials);
         Checkings.checkForStatusCode(login, HTTP_OK);
-        Checkings.checkParamWithValue(login, "success", true);
+        Checkings.checkSuccessIsTrue(login);
     }
     @Test
     @DisplayName("Check login a user with wrong email")
@@ -44,8 +47,8 @@ public class LoginTest {
         userCredentials.setEmail(WRONG_EMAIL);
         var login = UserRequests.loginUser(userCredentials);
         Checkings.checkForStatusCode(login, HTTP_UNAUTHORIZED);
-        Checkings.checkParamWithValue(login, "success", false);
-        Checkings.checkParamWithValue(login, "message", ACCOUNT_NOT_FOUND);
+        Checkings.checkSuccessIsFalse(login);
+        Checkings.checkMessageValue(login, ACCOUNT_NOT_FOUND);
     }
     @Test
     @DisplayName("Check login a user with wrong password")
@@ -54,16 +57,18 @@ public class LoginTest {
         userCredentials.setPassword(WRONG_PASSWORD);
         var login = UserRequests.loginUser(userCredentials);
         Checkings.checkForStatusCode(login, HTTP_UNAUTHORIZED);
-        Checkings.checkParamWithValue(login, "success", false);
-        Checkings.checkParamWithValue(login, "message", ACCOUNT_NOT_FOUND);
+        Checkings.checkSuccessIsFalse(login);
+        Checkings.checkMessageValue(login, ACCOUNT_NOT_FOUND);
     }
     @After
+    @DisplayName("Delete created user")
+    @Description("Attempt to delete created user")
     public void deleteCreatedUser() {
         try {
         var delete = UserRequests.deleteUser(token);
             Checkings.checkForStatusCode(delete, HTTP_ACCEPTED);
-            Checkings.checkParamWithValue(delete, "success", true);
-            Checkings.checkParamWithValue(delete, "message", DELETE_USER);
+            Checkings.checkSuccessIsTrue(delete);
+            Checkings.checkMessageValue(delete, DELETE_USER);
         }
         catch (Exception e){
             System.out.println(SOMETHING_WRONG);

@@ -1,13 +1,11 @@
 package praktikum.methods.requests;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
-import org.apache.commons.lang3.RandomStringUtils;
 import praktikum.Credentials;
 import praktikum.User;
-import praktikum.methods.requests.RequestSpecification;
 
 import static java.lang.String.valueOf;
-import static praktikum.constants.BaseURLHandlesAndWarnings.*;
+import static praktikum.constants.BaseURLHandlesAndWarningsEtc.*;
 import static io.restassured.RestAssured.given;
 public class UserRequests {
     @Step ("getting Response via GET Request")
@@ -26,38 +24,31 @@ public class UserRequests {
                 .then().log().body()
                 ;
     }
-    @Step("user data generation")
-    public static User genericUser() {
-        return new User("Bazz" + RandomStringUtils.randomAlphanumeric(3,5) + "@yandex.ru",
-                RandomStringUtils.randomAlphanumeric(6,10), "Bazz");
-    }
-    @Step("user credentials generation")
-    public static Credentials genericUserCredentials(User user) {
-        return new Credentials(user.getEmail(), user.getPassword());
-    }
-    @Step("get user access token")
-    public static String getUserAccessToken(ValidatableResponse response) {
-        return response
-                .extract()
-                .path("accessToken")
-                .toString()
-                ;
-    }
 
-    @Step("get user refresh token")
-    public static String getUserRefreshToken(ValidatableResponse response) {
-        return response
-                .extract()
-                .path("refreshToken")
-                .toString()
-                ;
-    }
     @Step("login a user")
     public static ValidatableResponse loginUser(Credentials cred) {
         return RequestSpecification.scope()
                 .body(cred)
                 .when()
                 .post(USER_LOGIN_HANDLE)
+                .then().log().body()
+                ;
+    }
+    @Step("change a user profile component with authorisation")
+    public static ValidatableResponse patchComponentWithAuthorisation(User user, String token) {
+        return RequestSpecification.scopeWithAuthorisation(token)
+                .body(user)
+                .when()
+                .patch(USER_CHANGE_DELETE_HANDLE)
+                .then().log().body()
+                ;
+    }
+    @Step("patch a user profile component without authorisation")
+    public static ValidatableResponse patchComponentWithoutAuthorisation(User user) {
+        return RequestSpecification.scope()
+                .body(user)
+                .when()
+                .patch(USER_CHANGE_DELETE_HANDLE)
                 .then().log().body()
                 ;
     }

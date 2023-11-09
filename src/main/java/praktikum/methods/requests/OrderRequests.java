@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import praktikum.Order;
 
-import static praktikum.constants.BaseURLHandlesAndWarnings.ORDERS_HANDLE;
+import static praktikum.constants.BaseURLHandlesAndWarningsEtc.ORDERS_HANDLE;
 
 public class OrderRequests {
     @Step("create an order")

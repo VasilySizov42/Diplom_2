@@ -5,18 +5,21 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import praktikum.methods.GeneralMethods;
 import praktikum.methods.checking.Checkings;
 import praktikum.methods.requests.UserRequests;
 
 import static java.net.HttpURLConnection.*;
-import static praktikum.constants.BaseURLHandlesAndWarnings.*;
+import static praktikum.constants.BaseURLHandlesAndWarningsEtc.*;
 
 public class RegistrationTest {
     User userData;
     Credentials userCredentials;
     @Before
+    @DisplayName("Create profile data")
+    @Description("Attempt to create random profile data for a new user")
     public void createNewUserData() {
-        userData = UserRequests.genericUser();
+        userData = GeneralMethods.genericUser();
     }
     @Test
     @DisplayName("Check creating a user with random profile data")
@@ -24,7 +27,7 @@ public class RegistrationTest {
     public void createUserWithRandomProfileData() {
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_OK);
-        Checkings.checkParamWithValue(register, "success", true);
+        Checkings.checkSuccessIsTrue(register);
     }
     @Test
     @DisplayName("Check creating a user with a duplicate profile data")
@@ -32,11 +35,11 @@ public class RegistrationTest {
     public void creatingCourierWithDuplicateProfileData() {
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_OK);
-        Checkings.checkParamWithValue(register, "success", true);
+        Checkings.checkSuccessIsTrue(register);
         var register2 = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register2, HTTP_FORBIDDEN);
-        Checkings.checkParamWithValue(register2, "success", false);
-        Checkings.checkParamWithValue(register2, "message", ALREADY_IN_USE);
+        Checkings.checkSuccessIsFalse(register2);
+        Checkings.checkMessageValue(register2, ALREADY_IN_USE);
     }
     @Test
     @DisplayName("Check creating a user without email")
@@ -45,8 +48,8 @@ public class RegistrationTest {
         userData.setEmail(null);
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
-        Checkings.checkParamWithValue(register, "success", false);
-        Checkings.checkParamWithValue(register, "message", NOT_ENOUGH_DATA);
+        Checkings.checkSuccessIsFalse(register);
+        Checkings.checkMessageValue(register, NOT_ENOUGH_DATA);
     }
     @Test
     @DisplayName("Check creating a user without email")
@@ -55,8 +58,8 @@ public class RegistrationTest {
         userData.setEmail("");
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
-        Checkings.checkParamWithValue(register, "success", false);
-        Checkings.checkParamWithValue(register, "message", NOT_ENOUGH_DATA);
+        Checkings.checkSuccessIsFalse(register);
+        Checkings.checkMessageValue(register, NOT_ENOUGH_DATA);
     }
     @Test
     @DisplayName("Check creating a user without password")
@@ -65,8 +68,8 @@ public class RegistrationTest {
         userData.setPassword(null);
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
-        Checkings.checkParamWithValue(register, "success", false);
-        Checkings.checkParamWithValue(register, "message", NOT_ENOUGH_DATA);
+        Checkings.checkSuccessIsFalse(register);
+        Checkings.checkMessageValue(register, NOT_ENOUGH_DATA);
     }
     @Test
     @DisplayName("Check creating a user without password")
@@ -75,8 +78,8 @@ public class RegistrationTest {
         userData.setPassword("");
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
-        Checkings.checkParamWithValue(register, "success", false);
-        Checkings.checkParamWithValue(register, "message", NOT_ENOUGH_DATA);
+        Checkings.checkSuccessIsFalse(register);
+        Checkings.checkMessageValue(register, NOT_ENOUGH_DATA);
     }
     @Test
     @DisplayName("Check creating a user without name")
@@ -85,8 +88,8 @@ public class RegistrationTest {
         userData.setName(null);
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
-        Checkings.checkParamWithValue(register, "success", false);
-        Checkings.checkParamWithValue(register, "message", NOT_ENOUGH_DATA);
+        Checkings.checkSuccessIsFalse(register);
+        Checkings.checkMessageValue(register, NOT_ENOUGH_DATA);
     }
     @Test
     @DisplayName("Check creating a user without name")
@@ -95,19 +98,21 @@ public class RegistrationTest {
         userData.setName("");
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
-        Checkings.checkParamWithValue(register, "success", false);
-        Checkings.checkParamWithValue(register, "message", NOT_ENOUGH_DATA);
+        Checkings.checkSuccessIsFalse(register);
+        Checkings.checkMessageValue(register, NOT_ENOUGH_DATA);
     }
     @After
+    @DisplayName("Delete created user")
+    @Description("Attempt to delete created user")
     public void deleteCreatedUser() {
-        userCredentials = UserRequests.genericUserCredentials(userData);
+        userCredentials = GeneralMethods.genericUserCredentials(userData);
         try {
         var login = UserRequests.loginUser(userCredentials);
-        var token = UserRequests.getUserAccessToken(login);
+        var token = GeneralMethods.getUserAccessToken(login);
         var delete = UserRequests.deleteUser(token);
         Checkings.checkForStatusCode(delete, HTTP_ACCEPTED);
-        Checkings.checkParamWithValue(delete, "success", true);
-        Checkings.checkParamWithValue(delete, "message", DELETE_USER);
+            Checkings.checkSuccessIsTrue(delete);
+            Checkings.checkMessageValue(delete, DELETE_USER);
         }
         catch (NullPointerException e){
             System.out.println(AUTHORIZATION_NOT_POSSIBLE);

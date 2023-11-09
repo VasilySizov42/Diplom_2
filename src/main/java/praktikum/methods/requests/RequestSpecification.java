@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
-import static praktikum.constants.BaseURLHandlesAndWarnings.STELLAR_BURGERS;
+import static praktikum.constants.BaseURLHandlesAndWarningsEtc.STELLAR_BURGERS;
 
 public class RequestSpecification  {
     @Step("connect to resource")

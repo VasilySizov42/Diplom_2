@@ -1,6 +1,6 @@
 package praktikum.constants;
 
-public class BaseURLHandlesAndWarnings {
+public class BaseURLHandlesAndWarningsEtc {
     //Handles
     public static final String STELLAR_BURGERS = "https://stellarburgers.nomoreparties.site";
     public static final String USER_REGISTER_HANDLE = "/api/auth/register";
@@ -16,7 +16,6 @@ public class BaseURLHandlesAndWarnings {
     public static final String ALREADY_IN_USE = "User already exists";
     public static final String NOT_ENOUGH_DATA = "Email, password and name are required fields";
     public static final String ACCOUNT_NOT_FOUND = "email or password are incorrect";
-    public static final String INSUFFICIENT_LOGIN_DATA = "email or password are incorrect";
     public static final String NOT_AUTHORISED = "You should be authorised";
     public static final String EMAIL_ALREADY_EXISTS = "User with such email already exists";
     public static final String INSUFFICIENT_ORDER_DATA = "Ingredient ids must be provided";
@@ -26,4 +25,7 @@ public class BaseURLHandlesAndWarnings {
     public static final String CHECK_DATA = "Пользователь не был создан. Проверьте данные.";
     public static final String AUTHORIZATION_NOT_POSSIBLE = "Пользователь не был создан. Авторизация невозможна.";
     public static final String SOMETHING_WRONG = "Что-то пошло не так. Проверьте токен.";
+    //Paths
+    public static final String EMAIL = "user.email";
+    public static final String NAME = "user.name";
 }
