@@ -30,4 +30,5 @@ public class BaseURLHandlesAndWarningsEtc {
     public static final String EMAIL = "user.email";
     public static final String NAME = "user.name";
     public static final String ORDER = "order";
+    public static final String ORDERS = "orders";
 }

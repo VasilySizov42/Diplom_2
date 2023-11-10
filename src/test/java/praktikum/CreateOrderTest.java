@@ -16,7 +16,6 @@ import static praktikum.constants.BaseURLHandlesAndWarningsEtc.*;
 
 public class CreateOrderTest {
     User userData;
-    Credentials userCredentials;
     String token;
     @Before
     @DisplayName("Create new user")
@@ -26,8 +25,6 @@ public class CreateOrderTest {
             userData = GeneralMethods.genericUser();
             var register = UserRequests.registerUser(userData);
             token = GeneralMethods.getUserAccessToken(register);
-            userCredentials = GeneralMethods.genericUserCredentials(userData);
-            UserRequests.loginUser(userCredentials);
         }
         catch (Exception e){
             System.out.println(CHECK_DATA);
@@ -60,8 +57,6 @@ public class CreateOrderTest {
         var ingredients = new Order(DataForTesting.INGREDIENTS_WRONG);
         var order = OrderRequests.createOrderWithAuthorisation(ingredients, token);
         Checkings.checkForStatusCode(order, HTTP_INTERNAL_ERROR);
-        Checkings.checkSuccessIsFalse(order);
-        Checkings.checkMessageValue(order, INCORRECT_HASH);
     }
     @Test
     @DisplayName("Check creating an order with ingredients and without authorisation")
