@@ -15,8 +15,8 @@ public class RequestSpecification  {
                 ;
     }
 
-    @Step("connect to resource with authorisation")
-    public static io.restassured.specification.RequestSpecification scopeWithAuthorisation(String token) {
+    @Step("connect to resource with authorization")
+    public static io.restassured.specification.RequestSpecification scopeWithAuthorization(String token) {
         return  given().log().method()
                 .contentType(ContentType.JSON)
                 .header("Authorization", token)

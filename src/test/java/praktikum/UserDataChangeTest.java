@@ -31,69 +31,69 @@ public class UserDataChangeTest {
     }
     @Test
     @DisplayName("Check change a user email")
-    @Description("Attempt to change a user email with authorisation for /api/auth/user")
-    public void changeUserEmailWithAuthorisation() {
+    @Description("Attempt to change a user email with authorization for /api/auth/user")
+    public void changeUserEmailWithAuthorization() {
         userData.setEmail(MODIFIED_EMAIL);
-        var patchEmail = UserRequests.patchComponentWithAuthorisation(userData, token);
+        var patchEmail = UserRequests.patchComponentWithAuthorization(userData, token);
         Checkings.checkForStatusCode(patchEmail, HTTP_OK);
         Checkings.checkSuccessIsTrue(patchEmail);
         Checkings.checkParamWithValue(patchEmail, EMAIL, MODIFIED_EMAIL);
     }
     @Test
     @DisplayName("Check change a user email to already used")
-    @Description("Attempt to change a user email to already used with authorisation for /api/auth/user")
-    public void changeUserEmailToAlreadyUsedWithAuthorisation() {
+    @Description("Attempt to change a user email to already used with authorization for /api/auth/user")
+    public void changeUserEmailToAlreadyUsedWithAuthorization() {
         userData.setEmail(ALREADY_USED_EMAIL);
-        var patchEmail = UserRequests.patchComponentWithAuthorisation(userData, token);
+        var patchEmail = UserRequests.patchComponentWithAuthorization(userData, token);
         Checkings.checkForStatusCode(patchEmail, HTTP_FORBIDDEN);
         Checkings.checkSuccessIsFalse(patchEmail);
         Checkings.checkMessageValue(patchEmail, EMAIL_ALREADY_EXISTS);
     }
     @Test
-    @DisplayName("Check change a user email without authorisation")
-    @Description("Attempt to change a user email without authorisation for /api/auth/user")
-    public void changeUserEmailWithoutAuthorisation() {
+    @DisplayName("Check change a user email without authorization")
+    @Description("Attempt to change a user email without authorization for /api/auth/user")
+    public void changeUserEmailWithoutAuthorization() {
         userData.setEmail(MODIFIED_EMAIL);
-        var patchEmail = UserRequests.patchComponentWithoutAuthorisation(userData);
+        var patchEmail = UserRequests.patchComponentWithoutAuthorization(userData);
         Checkings.checkForStatusCode(patchEmail, HTTP_UNAUTHORIZED);
         Checkings.checkSuccessIsFalse(patchEmail);
         Checkings.checkMessageValue(patchEmail, NOT_AUTHORISED);
     }
     @Test
     @DisplayName("Check change a user password")
-    @Description("Attempt to change a user password with authorisation for /api/auth/user")
-    public void changeUserPasswordWithAuthorisation() {
+    @Description("Attempt to change a user password with authorization for /api/auth/user")
+    public void changeUserPasswordWithAuthorization() {
         userData.setPassword(MODIFIED_PASSWORD);
-        var patchPassword = UserRequests.patchComponentWithAuthorisation(userData, token);
+        var patchPassword = UserRequests.patchComponentWithAuthorization(userData, token);
         Checkings.checkForStatusCode(patchPassword, HTTP_OK);
         Checkings.checkSuccessIsTrue(patchPassword);
     }
     @Test
-    @DisplayName("Check change a user password without authorisation")
-    @Description("Attempt to change a user password without authorisation for /api/auth/user")
-    public void changeUserPasswordWithoutAuthorisation() {
+    @DisplayName("Check change a user password without authorization")
+    @Description("Attempt to change a user password without authorization for /api/auth/user")
+    public void changeUserPasswordWithoutAuthorization() {
         userData.setPassword(MODIFIED_PASSWORD);
-        var patchPassword = UserRequests.patchComponentWithoutAuthorisation(userData);
+        var patchPassword = UserRequests.patchComponentWithoutAuthorization(userData);
         Checkings.checkForStatusCode(patchPassword, HTTP_UNAUTHORIZED);
         Checkings.checkSuccessIsFalse(patchPassword);
         Checkings.checkMessageValue(patchPassword, NOT_AUTHORISED);
     }
     @Test
     @DisplayName("Check change a user name")
-    @Description("Attempt to change a user name with authorisation for /api/auth/user")
-    public void changeUserNameWithAuthorisation() {
+    @Description("Attempt to change a user name with authorization for /api/auth/user")
+    public void changeUserNameWithAuthorization() {
         userData.setName(MODIFIED_NAME);
-        var patchName = UserRequests.patchComponentWithAuthorisation(userData, token);
+        var patchName = UserRequests.patchComponentWithAuthorization(userData, token);
         Checkings.checkForStatusCode(patchName, HTTP_OK);
         Checkings.checkSuccessIsTrue(patchName);
         Checkings.checkParamWithValue(patchName, NAME, MODIFIED_NAME);
     }
     @Test
-    @DisplayName("Check change a user name without authorisation")
-    @Description("Attempt to change a user name without authorisation for /api/auth/user")
-    public void changeUserNameWithoutAuthorisation() {
+    @DisplayName("Check change a user name without authorization")
+    @Description("Attempt to change a user name without authorization for /api/auth/user")
+    public void changeUserNameWithoutAuthorization() {
         userData.setName(MODIFIED_NAME);
-        var patchName = UserRequests.patchComponentWithoutAuthorisation(userData);
+        var patchName = UserRequests.patchComponentWithoutAuthorization(userData);
         Checkings.checkForStatusCode(patchName, HTTP_UNAUTHORIZED);
         Checkings.checkSuccessIsFalse(patchName);
         Checkings.checkMessageValue(patchName, NOT_AUTHORISED);

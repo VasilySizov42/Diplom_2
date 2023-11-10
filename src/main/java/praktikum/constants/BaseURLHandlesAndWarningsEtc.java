@@ -5,11 +5,7 @@ public class BaseURLHandlesAndWarningsEtc {
     public static final String STELLAR_BURGERS = "https://stellarburgers.nomoreparties.site";
     public static final String USER_REGISTER_HANDLE = "/api/auth/register";
     public static final String USER_LOGIN_HANDLE = "/api/auth/login";
-    public static final String USER_LOGOUT_HANDLE = "/api/auth/logout";
     public static final String USER_CHANGE_DELETE_HANDLE = "/api/auth/user";
-    public static final String PASSWORD_RESET_HANDLE = "/api/password-reset";
-    public static final String PASSWORD_RESET_SAVE_HANDLE = "/api/password-reset/reset";
-    public static final String INGREDIENTS_HANDLE = "/api/ingredients";
     public static final String ORDERS_HANDLE = "/api/orders";
 
     //Messages

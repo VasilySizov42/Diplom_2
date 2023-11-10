@@ -7,17 +7,17 @@ import praktikum.Order;
 import static praktikum.constants.BaseURLHandlesAndWarningsEtc.ORDERS_HANDLE;
 
 public class OrderRequests {
-    @Step("create an order with authorisation")
-    public static ValidatableResponse createOrderWithAuthorisation(Order order, String token) {
-        return RequestSpecification.scopeWithAuthorisation(token)
+    @Step("create an order with authorization")
+    public static ValidatableResponse createOrderWithAuthorization(Order order, String token) {
+        return RequestSpecification.scopeWithAuthorization(token)
                 .body(order)
                 .when()
                 .post(ORDERS_HANDLE)
                 .then().log().body()
                 ;
     }
-    @Step("create an order without authorisation")
-    public static ValidatableResponse createOrderWithoutAuthorisation(Order order) {
+    @Step("create an order without authorization")
+    public static ValidatableResponse createOrderWithoutAuthorization(Order order) {
         return RequestSpecification.scope()
                 .body(order)
                 .when()
@@ -25,16 +25,16 @@ public class OrderRequests {
                 .then().log().body()
                 ;
     }
-    @Step("get authorised user orders")
-    public static ValidatableResponse getUserOrderWithAuthorisation(String token) {
-        return RequestSpecification.scopeWithAuthorisation(token)
+    @Step("get authorized user orders")
+    public static ValidatableResponse getUserOrderWithAuthorization(String token) {
+        return RequestSpecification.scopeWithAuthorization(token)
                 .when()
                 .get(ORDERS_HANDLE)
                 .then().log().body()
                 ;
     }
-    @Step("get unauthorised user orders")
-    public static ValidatableResponse getUserOrderWithoutAuthorisation() {
+    @Step("get unauthorized user orders")
+    public static ValidatableResponse getUserOrderWithoutAuthorization() {
         return RequestSpecification.scope()
                 .when()
                 .get(ORDERS_HANDLE)

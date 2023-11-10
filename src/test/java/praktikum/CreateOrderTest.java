@@ -31,49 +31,49 @@ public class CreateOrderTest {
         }
     }
     @Test
-    @DisplayName("Check creating an order with ingredients and authorisation")
-    @Description("Attempt to create an order for authorised user with ingredients for /api/orders")
+    @DisplayName("Check creating an order with ingredients and authorization")
+    @Description("Attempt to create an order for authorized user with ingredients for /api/orders")
     public void createOrderForAuthUserWithIngredients() {
         var ingredients = new Order(DataForTesting.INGREDIENTS_1);
-        var order = OrderRequests.createOrderWithAuthorisation(ingredients, token);
+        var order = OrderRequests.createOrderWithAuthorization(ingredients, token);
         Checkings.checkForStatusCode(order, HTTP_OK);
         Checkings.checkSuccessIsTrue(order);
         Checkings.checkParamIsNotNull(order, ORDER);
     }
     @Test
-    @DisplayName("Check creating an order with ingredients and authorisation")
-    @Description("Attempt to create an order for authorised user without ingredients for /api/orders")
+    @DisplayName("Check creating an order with ingredients and authorization")
+    @Description("Attempt to create an order for authorized user without ingredients for /api/orders")
     public void createOrderForAuthUserWithoutIngredients() {
         var ingredients = new Order();
-        var order = OrderRequests.createOrderWithAuthorisation(ingredients, token);
+        var order = OrderRequests.createOrderWithAuthorization(ingredients, token);
         Checkings.checkForStatusCode(order, HTTP_BAD_REQUEST);
         Checkings.checkSuccessIsFalse(order);
         Checkings.checkMessageValue(order, INSUFFICIENT_ORDER_DATA);
     }
     @Test
-    @DisplayName("Check creating an order with wrong ingredients hash and authorisation")
-    @Description("Attempt to create an order for authorised user with wrong ingredients hash for /api/orders")
+    @DisplayName("Check creating an order with wrong ingredients hash and authorization")
+    @Description("Attempt to create an order for authorized user with wrong ingredients hash for /api/orders")
     public void createOrderForAuthUserWithWrongIngredientsHash() {
         var ingredients = new Order(DataForTesting.INGREDIENTS_WRONG);
-        var order = OrderRequests.createOrderWithAuthorisation(ingredients, token);
+        var order = OrderRequests.createOrderWithAuthorization(ingredients, token);
         Checkings.checkForStatusCode(order, HTTP_INTERNAL_ERROR);
     }
     @Test
-    @DisplayName("Check creating an order with ingredients and without authorisation")
-    @Description("Attempt to create an order for unauthorised user with ingredients for /api/orders")
+    @DisplayName("Check creating an order with ingredients and without authorization")
+    @Description("Attempt to create an order for unauthorized user with ingredients for /api/orders")
     public void createOrderWithIngredients() {
         var ingredients = new Order(DataForTesting.INGREDIENTS_1);
-        var order = OrderRequests.createOrderWithoutAuthorisation(ingredients);
+        var order = OrderRequests.createOrderWithoutAuthorization(ingredients);
         Checkings.checkForStatusCode(order, HTTP_OK);
         Checkings.checkSuccessIsTrue(order);
         Checkings.checkParamIsNotNull(order, ORDER);
     }
     @Test
-    @DisplayName("Check creating an order without ingredients and without authorisation")
-    @Description("Attempt to create an order for unauthorised user without ingredients for /api/orders")
+    @DisplayName("Check creating an order without ingredients and without authorization")
+    @Description("Attempt to create an order for unauthorized user without ingredients for /api/orders")
     public void createOrderWithoutIngredients() {
         var ingredients = new Order();
-        var order = OrderRequests.createOrderWithoutAuthorisation(ingredients);
+        var order = OrderRequests.createOrderWithoutAuthorization(ingredients);
         Checkings.checkForStatusCode(order, HTTP_BAD_REQUEST);
         Checkings.checkSuccessIsFalse(order);
         Checkings.checkMessageValue(order, INSUFFICIENT_ORDER_DATA);

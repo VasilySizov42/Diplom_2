@@ -16,7 +16,6 @@ import static praktikum.constants.BaseURLHandlesAndWarningsEtc.*;
 
 public class GettingUserOrdersTest {
     User userData;
-    Credentials userCredentials;
     String token;
     @Before
     @DisplayName("Create new user")
@@ -26,30 +25,29 @@ public class GettingUserOrdersTest {
             userData = GeneralMethods.genericUser();
             var register = UserRequests.registerUser(userData);
             token = GeneralMethods.getUserAccessToken(register);
-            userCredentials = GeneralMethods.genericUserCredentials(userData);
         }
         catch (Exception e){
             System.out.println(CHECK_DATA);
         }
     }
     @Test
-    @DisplayName("Check getting authorised user orders")
-    @Description("Attempt to get orders for authorised user for /api/orders")
-    public void getAuthorisedUserOrders() {
+    @DisplayName("Check getting authorized user orders")
+    @Description("Attempt to get orders for authorized user for /api/orders")
+    public void getAuthorizedUserOrders() {
         var ingredients = new Order(DataForTesting.INGREDIENTS_1);
-        OrderRequests.createOrderWithAuthorisation(ingredients, token);
-        var gettingOrders = OrderRequests.getUserOrderWithAuthorisation(token);
+        OrderRequests.createOrderWithAuthorization(ingredients, token);
+        var gettingOrders = OrderRequests.getUserOrderWithAuthorization(token);
         Checkings.checkForStatusCode(gettingOrders, HTTP_OK);
         Checkings.checkSuccessIsTrue(gettingOrders);
         Checkings.checkParamIsNotNull(gettingOrders, ORDERS);
     }
     @Test
-    @DisplayName("Check getting unauthorised user orders")
-    @Description("Attempt to get orders for unauthorised user for /api/orders")
-    public void getUnauthorisedUserOrders() {
+    @DisplayName("Check getting unauthorized user orders")
+    @Description("Attempt to get orders for unauthorized user for /api/orders")
+    public void getUnauthorizedUserOrders() {
         var ingredients = new Order(DataForTesting.INGREDIENTS_1);
-        OrderRequests.createOrderWithoutAuthorisation(ingredients);
-        var gettingOrders = OrderRequests.getUserOrderWithoutAuthorisation();
+        OrderRequests.createOrderWithoutAuthorization(ingredients);
+        var gettingOrders = OrderRequests.getUserOrderWithoutAuthorization();
         Checkings.checkForStatusCode(gettingOrders, HTTP_UNAUTHORIZED);
         Checkings.checkSuccessIsFalse(gettingOrders);
         Checkings.checkMessageValue(gettingOrders, NOT_AUTHORISED);
