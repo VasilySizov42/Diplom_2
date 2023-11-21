@@ -32,19 +32,19 @@ public class RegistrationTest {
     @Test
     @DisplayName("Check creating a user with a duplicate profile data")
     @Description("Attempt to create a user of a previously used profile data for /api/auth/register")
-    public void creatingCourierWithDuplicateProfileData() {
-        var register = UserRequests.registerUser(userData);
-        Checkings.checkForStatusCode(register, HTTP_OK);
-        Checkings.checkSuccessIsTrue(register);
-        var register2 = UserRequests.registerUser(userData);
-        Checkings.checkForStatusCode(register2, HTTP_FORBIDDEN);
-        Checkings.checkSuccessIsFalse(register2);
-        Checkings.checkMessageValue(register2, ALREADY_IN_USE);
+    public void createCourierWithDuplicateProfileData() {
+        var registerUser = UserRequests.registerUser(userData);
+        Checkings.checkForStatusCode(registerUser, HTTP_OK);
+        Checkings.checkSuccessIsTrue(registerUser);
+        var registerOtherUser = UserRequests.registerUser(userData);
+        Checkings.checkForStatusCode(registerOtherUser, HTTP_FORBIDDEN);
+        Checkings.checkSuccessIsFalse(registerOtherUser);
+        Checkings.checkMessageValue(registerOtherUser, ALREADY_IN_USE);
     }
     @Test
     @DisplayName("Check creating a user without email")
     @Description("Attempt to create a user with null email for /api/auth/register")
-    public void creatingUserWithoutEmail() {
+    public void createUserWithoutEmail() {
         userData.setEmail(null);
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
@@ -54,7 +54,7 @@ public class RegistrationTest {
     @Test
     @DisplayName("Check creating a user without email")
     @Description("Attempt to create a user with blank email for /api/auth/register")
-    public void creatingUserWithBlankEmail() {
+    public void createUserWithBlankEmail() {
         userData.setEmail("");
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
@@ -64,7 +64,7 @@ public class RegistrationTest {
     @Test
     @DisplayName("Check creating a user without password")
     @Description("Attempt to create a user with null password for /api/auth/register")
-    public void creatingUserWithoutPassword() {
+    public void createUserWithoutPassword() {
         userData.setPassword(null);
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
@@ -74,7 +74,7 @@ public class RegistrationTest {
     @Test
     @DisplayName("Check creating a user without password")
     @Description("Attempt to create a user with blank password for /api/auth/register")
-    public void creatingUserWithBlankPassword() {
+    public void createUserWithBlankPassword() {
         userData.setPassword("");
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
@@ -84,7 +84,7 @@ public class RegistrationTest {
     @Test
     @DisplayName("Check creating a user without name")
     @Description("Attempt to create a user with null name for /api/auth/register")
-    public void creatingUserWithoutName() {
+    public void createUserWithoutName() {
         userData.setName(null);
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
@@ -94,7 +94,7 @@ public class RegistrationTest {
     @Test
     @DisplayName("Check creating a user without name")
     @Description("Attempt to create a user with blank name for /api/auth/register")
-    public void creatingUserWithBlankName() {
+    public void createUserWithBlankName() {
         userData.setName("");
         var register = UserRequests.registerUser(userData);
         Checkings.checkForStatusCode(register, HTTP_FORBIDDEN);
